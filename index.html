@@ -1,45 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Odin Calculator</title>
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-    <h1>Odin Calculator</h1>
-    <div id="CalcContainer">
-        <div id="CalculatorDisplay">test display</div>
-        <div id="row1">
-            <button class="row1">7</button>
-            <button class="row1">8</button>
-            <button class="row1">9</button>
-            <button class="row1" name="operator">%</button>
-            <button class="row1" name="operator">√</button>
-        </div>
-        <div id="row2">
-            <button class="row2">4</button>
-            <button class="row2">5</button>
-            <button class="row2">6</button>
-            <button class="row2" name="operator">X</button>
-            <button class="row2" name="operator">/</button>
-        </div>
-        <div id="row3">
-            <button class="row3" id="1">1</button>
-            <button class="row3" id="2">2</button>
-            <button class="row3" id="3">3</button>
-            <button class="row3" id="add" name="operator">+</button>
-            <button class="row3" id="minus" name="operator">-</button>
-        </div>
-        <div id="row4">
-            <button class="row4" id="0">0</button>
-            <button class="row4" id="plusminus">+/-</button>
-            <button class="row4" id="decimal" name="operator">.</button>
-            <button class="row4" id="equal"name="operator">=</button>
-        </div>
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Odin Calculator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <h1>Odin Calculator</h1>
+  <div id="CalcContainer" class="CalcContainer">
+    <div class="display"></div>
+    <div id="row1">
+      <button class="number">7</button>
+      <button class="number">8</button>
+      <button class="number">9</button>
+      <button class="operator" name="operator" id="remainder">%</button>
+      <button name="operator" id="sqrt">√</button>
     </div>
+    <div id="row2">
+      <button class="number">4</button>
+      <button class="number">5</button>
+      <button class="number">6</button>
+      <button class="operator" name="operator">*</button>
+      <button class="operator" id="divide" name="operator">/</button>
     </div>
-	<script src="index.js"></script>
-  </body>
+    <div id="row3">
+      <button class="number">1</button>
+      <button class="number">2</button>
+      <button class="number">3</button>
+      <button class="operator" name="operator">+</button>
+      <button class="operator" name="operator">-</button>
+    </div>
+    <div id="row4">
+      <button class="number" id="zero">0</button>
+      <button id="decimal" name="operator" onclick="'.'">.</button>
+      <button class="equal" id="equal" name="operator">=</button>
+      <button class="clear" id="clear">C</button>
+
+    </div>
+  </div>
+  </div>
+  <script src="index.js" defer></script>
+</body>
+
 </html>

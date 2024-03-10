@@ -1,113 +1,113 @@
 'use strict';
 const calcDisplay = document.querySelector(".display")
-function calculator(num1, num2, operator) {
-  if (operator === '+') {
-    return calcDisplay.textContent = (num1 + num2)
+
+const NumberButton = document.querySelectorAll(".number")
+
+const operatorButton = document.querySelectorAll(".operator")
+
+const equalButton = document.querySelector(".equal")
+
+const previousDispaly = document.querySelector(".previousDisplay")
+
+const decimal = document.querySelector(".decimal")
+
+const equal = document.querySelector(".equal");
+equal.addEventListener('click', () => {
+  if (currentNum != "" && previousNum != "") {
+    calculate();
   }
-  if (operator === '-') {
-    return calcDisplay.textContent = (num1 - num2)
-  }
-  if (operator === '/') {
-    return calcDisplay.textContent = (num1 / num2)
-  }
-  if (operator === '*') {
-    return calcDisplay.textContent = (num1 * num2)
-  }
-  if (operator === '%') {
-    return calcDisplay.textContent = (num1 % num2)
-  } else return 'invalid'
+})
 
-}
+const clear = document.querySelector(".clear");
+clear.addEventListener('click', clearCalc)
 
-window.onload = () => {
-  getNumbers();
-  getOperator();
-  equal();
-  clear();
-}
-function operate(num1, num2, operator) {
-  return calculator(num1, num2, operator);
-}
+let currentNum = '';
+let previousNum = '';
+let operator = '';
 
-const num1Holder = [];
-const concatNumber1 = [];
-const concatNumber2 = [];
-const num2Holder = [];
-const operatorHolder = [];
+NumberButton.forEach((button) => {
+  button.addEventListener('click', (e) => {
+    handleNumber(e.target.textContent);
+  });
+});
 
-
-function getNumbers() {
-  const numberButtons = document.querySelectorAll(".number")
-
-  for (let i = 0; i < numberButtons.length; i++) {
-    numberButtons[i].addEventListener('click', () => {
-      num1Holder.push(numberButtons[i].innerHTML);
-      calcDisplay.textContent += numberButtons[i].innerHTML;
-    });
-
-
-  }
-}
-
-function getOperator() {
-  const numberButtons = document.querySelectorAll(".number")
-  const operateButton = document.querySelectorAll(".operator")
-  for (let i = 0; i < operateButton.length; i++) {
-    operateButton[i].addEventListener('click', () => {
-      operatorHolder.push(operateButton[i].innerHTML);
-      calcDisplay.textContent = '';
-      let x = Number(num1Holder.join(''));
-      concatNumber1.push(x)
-      num1Holder.length = 0
-
-    })
+function handleNumber(number) {
+  if (currentNum.length <= 10) {
+    currentNum += number;
+    calcDisplay.textContent = currentNum;
   }
 }
 
 
-function equal() {
-  const equalButton = document.querySelectorAll(".equal")
-  for (let i = 0; i < equalButton.length; i++) {
-    equalButton[i].addEventListener('click', () => {
-      let x = Number(num1Holder.join(''))
-      concatNumber2.push(x)
-      operate(concatNumber1[0], concatNumber2[0], operatorHolder[0]);
-      num1Holder.length = 0;
-      num2Holder.length = 0;
-      concatNumber1.length = 0;
-      concatNumber2.length = 0;
-      operatorHolder.length = 0;
+operatorButton.forEach((button) => {
+  button.addEventListener('click', (e) => {
+    handleOperator(e.target.textContent);
+  })
+})
 
-    })
-  }
-}
+decimal.addEventListener('click', addDecimal)
 
-function clear() {
-  const clearButton = document.querySelectorAll(".clear");
-  for (let i = 0; i < clearButton.length; i++) {
-    clearButton[i].addEventListener('click', () => {
-      calcDisplay.textContent = ''
-      num1Holder.length = 0;
-      num2Holder.length = 0;
-      concatNumber1.length = 0;
-      concatNumber2.length = 0;
-      operatorHolder.length = 0;
-
-    })
-  }
+function handleOperator(op) {
+  operator = op;
+  previousNum = currentNum;
+  previousDispaly.textContent = previousNum + " " + operator;
+  currentNum = '';
+  calcDisplay.textContent = '';
 }
 
 
 
-console.log(concatNumber1)
+function calculate() {
+  previousNum = Number(previousNum);
+  currentNum = Number(currentNum);
+
+  if (operator === "+") {
+    currentNum = previousNum += currentNum;
+  }
+  else if (operator === "*") {
+    currentNum = previousNum *= currentNum;
+  }
+  else if (operator === "-") {
+
+    currentNum = previousNum -= currentNum;
+  }
+  else if (operator === "%") {
+
+    currentNum = previousNum %= currentNum;
+  }
+  else if (operator === '/') {
+    if (currentNum <= 0) {
+      previousNum = "Error, can't divide by 0"
+      previousDispaly.textContent = '';
+      calcDisplay.textContent = previousNum;
+      operator = '';
+      return;
+    }
+    currentNum = previousNum /= currentNum;
+  }
+  previousNum = previousNum.toString();
+  previousDispaly.textContent = '';
+  calcDisplay.textContent = previousNum;
+  operator = ''
+}
 
 
-console.log(concatNumber2)
+function clearCalc() {
+  previousNum = ''
+  currentNum = ''
+  operator = ''
+  calcDisplay.textContent = ''
+  previousDispaly.textContent = ''
+}
 
+function addDecimal() {
+  if (!currentNum.includes('.')) {
+    currentNum += '.'
+    calcDisplay.textContent = currentNum;
+  }
+}
 
-console.log(operatorHolder)
-console.log(num1Holder)
-
+// console.log(calculator())
 
 // You should push the number into num1Holder when a number button is clicked, not after an operator button is clicked. When an operator button is clicked, you need to store the operator in operatorHolder and also reset calcDisplay.textContent to an empty string to start displaying the second number.
 
